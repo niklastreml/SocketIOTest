@@ -38,3 +38,14 @@ docker compose up --build
 cd client
 npm install
 npm start
+
+## 🤝 Contributions
+
+This repo is intended for testing purposes. Feel free to fork, experiment, and open issues if you discover relevant behaviors or improvements. 🔧
+
+---
+
+## 😂 Dev Joke of the Day
+
+> Why do programmers always mix up **Christmas** and **Halloween**?  
+> Because **Oct 31 == Dec 25**. 🎃🎄
