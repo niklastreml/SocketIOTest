@@ -22,7 +22,7 @@ We're encountering issues where **Socket.IO** connections are unexpectedly dropp
 
 ## 🛠️ Tech Stack
 
-- Node.js + Express
+- Node.js
 - Socket.IO
 - Docker
 - Kubernetes (for testing)
