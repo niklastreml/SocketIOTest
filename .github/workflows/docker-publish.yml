@@ -51,4 +51,4 @@ jobs:
             Latest version:
             👉 **https://ghcr.io/${{ steps.vars.outputs.image_name }}:latest**
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.CR_PAT }}
