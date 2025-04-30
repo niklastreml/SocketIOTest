@@ -38,6 +38,8 @@ docker compose up --build
 cd client
 npm install
 npm start
+```
+
 
 ## 🤝 Contributions
 
