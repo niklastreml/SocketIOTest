@@ -40,15 +40,15 @@ jobs:
           docker push ${{ steps.vars.outputs.image_name }}:${{ steps.vars.outputs.short_sha }}
 
       - name: Create GitHub Release
-          uses: softprops/action-gh-release@v1
-          with:
-            tag_name: ${{ steps.vars.outputs.short_sha }}
-            name: Build ${{ steps.vars.outputs.short_sha }}
-            body: |
-              Docker image pushed to GHCR:
-              👉 **https://ghcr.io/${{ steps.vars.outputs.image_name }}:${{ steps.vars.outputs.short_sha }}**
-              
-              Latest version:
-              👉 **https://ghcr.io/${{ steps.vars.outputs.image_name }}:latest**
-          env:
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ steps.vars.outputs.short_sha }}
+          name: Build ${{ steps.vars.outputs.short_sha }}
+          body: |
+            Docker image pushed to GHCR:
+            👉 **https://ghcr.io/${{ steps.vars.outputs.image_name }}:${{ steps.vars.outputs.short_sha }}**
+            
+            Latest version:
+            👉 **https://ghcr.io/${{ steps.vars.outputs.image_name }}:latest**
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
