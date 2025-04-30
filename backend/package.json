@@ -1,0 +1,9 @@
+{
+    "name": "socket-backend",
+    "version": "1.0.0",
+    "main": "index.js",
+    "dependencies": {
+      "socket.io": "^4.7.2"
+    }
+  }
+  
