@@ -40,6 +40,8 @@ npm install
 npm start
 ```
 
+---
+
 
 ## 🤝 Contributions
 
