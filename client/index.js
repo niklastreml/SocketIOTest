@@ -1,6 +1,8 @@
 const { io } = require("socket.io-client");
 
-const socket = io("http://localhost:3333", {
+require("dotenv").config();
+
+const socket = io(process.env.BACKEND_URL, {
   transports: ["websocket"],
   reconnection: false
 });
@@ -30,7 +32,3 @@ socket.io.engine.on("ping", () => {
 socket.io.engine.on("pong", () => {
   console.log(`[${new Date().toISOString()}] <-- Engine.IO Pong`);
 });
-
-
-// Log Engine.IO Ping/Pong
-socket.io.e
