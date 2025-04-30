@@ -6,7 +6,7 @@
 
 A simple test project to debug why **Kubernetes** is cutting off **Socket.IO** connections.
 
-> 🔍 This is a public repository to make debugging easier – no credentials or sensitive data involved.
+> 🔍 This is a public repository to make debugging easier – don't want to deal with credentials 😂 
 
 ---
 
