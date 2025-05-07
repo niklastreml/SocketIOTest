@@ -1,0 +1,70 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: socketiotest-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: socketiotest
+  template:
+    metadata:
+      labels:
+        app: socketiotest
+    spec:
+      imagePullSecrets:
+        - name: artifactory
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 3000
+        fsGroup: 2000
+        supplementalGroups:
+          - 1000
+      containers:
+      - name: socketiotest
+        image: ghcr.io/niklastreml/socketiotest:latest
+        ports:
+        - containerPort: 3333
+        securityContext:
+          allowPrivilegeEscalation: false
+          runAsNonRoot: true
+          capabilities:
+            drop:
+              - ALL
+          readOnlyRootFilesystem: true
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: socketiotest-service
+spec:
+  selector:
+    app: socketiotest
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 3333
+
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: socketiotest-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  tls:
+  - hosts:
+    - somehost.com
+    secretName: ingress-default-cert
+  rules:
+  - host: somehost.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: socketiotest-service
+            port:
+              number: 80

@@ -42,6 +42,8 @@ function NewClient(id) {
 const nClients = 50;
 
 for (let i = 0; i < nClients; i++) {
-    console.log(`Setting up client ${i}`)
-    NewClient(i);
+    setTimeout(() => {
+        console.log(`Setting up client ${i}`)
+        NewClient(i)
+    }, i * 100);
 }
