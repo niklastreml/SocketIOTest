@@ -18,8 +18,8 @@ io.on("connection", (socket) => {
   const clientAddr = socket.handshake.address || 'Unbekannt';
   log(`🔌 Neue Verbindung von Client (${clientAddr})`);
 
-  socket.on("disconnect", () => {
-    log("❌ Verbindung zu Client getrennt");
+  socket.on("disconnect", (msg) => {
+    log(`❌ Verbindung zu Client getrennt: ${msg}`);
   });
 
   socket.on("message", (msg) => {

@@ -24,8 +24,8 @@ function NewClient(id) {
         console.log(`[${new Date().toISOString()}] [${id}] 📩 Message from server:`, msg);
     });
 
-    socket.on("disconnect", () => {
-        console.log(`[${new Date().toISOString()}] [${id}] ❌ Disconnected from backend`);
+    socket.on("disconnect", (msg) => {
+        console.log(`[${new Date().toISOString()}] [${id}] ❌ Disconnected from backend Reason: ${msg}`);
         clearInterval(interval);
     });
 
