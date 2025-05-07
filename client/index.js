@@ -1,34 +1,47 @@
 const { io } = require("socket.io-client");
 
-require("dotenv").config();
+// require("dotenv").config();
 
-const socket = io(process.env.BACKEND_URL, {
-  transports: ["websocket"],
-  reconnection: false
-});
 
-socket.on("connect", () => {
-  console.log(`[${new Date().toISOString()}] ✅ Connected to backend`);
-  socket.send("I am here");
+function NewClient(id) {
+    const socket = io(process.env.BACKEND_URL, {
+        transports: ["websocket"],
+        reconnection: false
+    });
+    let interval;
 
-  // Halteverbindung durch periodische Nachricht
-  setInterval(() => {
-    socket.send("Still here");
-  }, 15 * 60 * 1000); // alle 15 Minuten
-});
+    socket.on("connect", () => {
+        console.log(`[${new Date().toISOString()}] [${id}] ✅ Connected to backend`);
+        socket.send(`I am here ID: ${id}`);
 
-socket.on("message", (msg) => {
-  console.log(`[${new Date().toISOString()}] 📩 Message from server:`, msg);
-});
+        // Halteverbindung durch periodische Nachricht
+        interval = setInterval(() => {
+            socket.send(`Still here ID: ${id}`);
+        }, 15 * 60 * 1000); // alle 15 Minuten
+    });
 
-socket.on("disconnect", () => {
-  console.log(`[${new Date().toISOString()}] ❌ Disconnected from backend`);
-});
+    socket.on("message", (msg) => {
+        console.log(`[${new Date().toISOString()}] [${id}] 📩 Message from server:`, msg);
+    });
 
-socket.io.engine.on("ping", () => {
-  console.log(`[${new Date().toISOString()}] --> Engine.IO Ping`);
-});
+    socket.on("disconnect", () => {
+        console.log(`[${new Date().toISOString()}] [${id}] ❌ Disconnected from backend`);
+        clearInterval(interval);
+    });
 
-socket.io.engine.on("pong", () => {
-  console.log(`[${new Date().toISOString()}] <-- Engine.IO Pong`);
-});
+    socket.io.engine.on("ping", () => {
+        console.log(`[${new Date().toISOString()}] [${id}] --> Engine.IO Ping`);
+    });
+
+    socket.io.engine.on("pong", () => {
+        console.log(`[${new Date().toISOString()}] [${id}] <-- Engine.IO Pong`);
+    });
+}
+
+
+const nClients = 50;
+
+for (let i = 0; i < nClients; i++) {
+    console.log(`Setting up client ${i}`)
+    NewClient(i);
+}

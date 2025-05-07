@@ -20,7 +20,6 @@ io.on("connection", (socket) => {
 
   socket.on("disconnect", () => {
     log("❌ Verbindung zu Client getrennt");
-    clearInterval(interval);
   });
 
   socket.on("message", (msg) => {
